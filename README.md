@@ -54,19 +54,7 @@ ADMIN: имеет доступ к административным ресурс�
 @Service  
 @AllArgsConstructor  
 public class SocialAppService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {  
-  
-    private final UserRepository userRepository;  
-  
-    private static final Logger logger = LoggerFactory.getLogger(SocialAppService.class);  
-  
-    @Override  
-    @Transactional    public OAuth2User loadUser(OAuth2UserRequest userRequest) {  
-        OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();  
-        OAuth2User oAuth2User = delegate.loadUser(userRequest);  
-		// Логика сохранения юзера, определения роли на основе аутентификации
-        return savedUser;  
-    }
-    
+      
 <h3>8. Обработка ошибок</h3>
 
 Добавьте обработчики для ошибок:
