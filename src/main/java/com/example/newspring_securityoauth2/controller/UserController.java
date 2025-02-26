@@ -33,7 +33,7 @@ public class UserController {
         return "Здесь могут находится только админы";
     }
 
-    @GetMapping("/get/users")
+    @GetMapping("/users")
     public List<User> getAllUsers(){
         return repository.findAll();
     }

@@ -12,16 +12,16 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Service
+@Component
 @AllArgsConstructor
 public class CustomOauth2Service extends DefaultOAuth2UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomOauth2Service.class);
-    private final String adminEmail = "ruzhalovich@bk.ru";
+    private static final Long adminId = 181048446L;
     private final UserRepository repository;
 
 
@@ -31,7 +31,8 @@ public class CustomOauth2Service extends DefaultOAuth2UserService {
         Map<String,Object> attributes = oAuth2User.getAttributes();
         attributes.forEach((key,value) -> logger.info(key + " : " + value));
         String email = (String) attributes.get("email");
-        Set<GrantedAuthority> authorities = createAuthorities(email);
+        Long id = Long.valueOf((Integer)attributes.get("id"));
+        Set<GrantedAuthority> authorities = createAuthorities(id);
         Optional<User> opt = repository.findAllByEmail(email);
         if (opt.isPresent()){
             logger.info("User sing in " + attributes.get("name"));
@@ -49,11 +50,11 @@ public class CustomOauth2Service extends DefaultOAuth2UserService {
                 authorities, attributes, "login");
     }
 
-    private Set<GrantedAuthority> createAuthorities(String email) {
+    private Set<GrantedAuthority> createAuthorities(Long id) {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("USER"));
-        if(email.equals(adminEmail))
-            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        if(Objects.equals(id, adminId))
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         return authorities;
     }
 }

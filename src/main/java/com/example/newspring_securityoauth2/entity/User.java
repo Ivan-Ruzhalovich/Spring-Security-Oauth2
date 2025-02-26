@@ -28,8 +28,6 @@ public class User implements OAuth2User, UserDetails {
     private String name;
     private String password;
     private String role;
-    private String provider;
-    private String providerId;
 
     @Override
     public String getUsername() {
