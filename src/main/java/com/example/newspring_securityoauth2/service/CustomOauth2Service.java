@@ -21,7 +21,7 @@ import java.util.*;
 public class CustomOauth2Service extends DefaultOAuth2UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomOauth2Service.class);
-    private static final Long adminId = 181048446L;
+    private static final Long adminId = 181048447L;
     private final UserRepository repository;
 
 

@@ -19,6 +19,7 @@ public class MyConfig {
                         .requestMatchers("/admin","/users").hasRole("ADMIN")
                         .requestMatchers("/user").hasRole("USER")
                         .anyRequest().authenticated())
+                .exceptionHandling(authorise -> authorise.accessDeniedPage("/access-denied"))
                 .oauth2Login(Customizer.withDefaults())
                         .logout(logout -> logout
                         .logoutUrl("/logout")

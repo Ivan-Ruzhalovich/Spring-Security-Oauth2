@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: New-Spring_Security-Oauth2
   security:
     oauth2:
       client:
